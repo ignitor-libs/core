@@ -1,0 +1,76 @@
+{
+  "name": "@ignitor/core",
+  "version": "1.0.0",
+  "description": "React/Redux Ignitor for development with less configuration.",
+  "keywords": [
+    "ignitor",
+    "vessel",
+    "react",
+    "react-hot-loader",
+    "redux",
+    "front-end"
+  ],
+  "homepage": "",
+  "license": "ISC",
+  "author": "mornya <mornya78@gmail.com>",
+  "private": false,
+  "repository": "https://bitbucket.org/mornya-web/ignitor/core",
+  "bugs": "",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "prepublishOnly": "vessel prepublish",
+    "login": "vessel login",
+    "clean": "vessel clean",
+    "build": "vessel build",
+    "watch": "vessel build watch",
+    "lint": "lintest lint",
+    "lint:fix": "lintest lint fix",
+    "test": "lintest test",
+    "test:watch": "lintest test watch",
+    "test:coverage": "lintest test coverage"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "!dist/test",
+    "!dist/**/@setup.d.ts",
+    "!dist/**/@setup.js",
+    "!dist/**/*.test.d.ts",
+    "!dist/**/*.test.js",
+    "types",
+    "CHANGELOG.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6"
+  },
+  "dependencies": {
+    "immer": "^7.0.7",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-hot-loader": "^4.12.21",
+    "react-redux": "^7.2.1",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.0.5",
+    "redux-mock-store": "^1.5.4"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.9",
+    "@types/node": "^14.0.27",
+    "@types/react": "^16.9.45",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-redux": "^7.1.9",
+    "@types/react-router-dom": "^5.1.5",
+    "@types/redux-mock-store": "^1.0.2",
+    "@types/webpack-env": "^1.15.2"
+  },
+  "vessel": {
+    "minVersion": "4.0.0"
+  }
+}
