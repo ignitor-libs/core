@@ -25,6 +25,9 @@ $ yarn add @ignitor/core
 본 패키지에는 아래와 같은 모듈들을 포함한다.<br>
 제공되는 모듈과 메소드 사용법 등은 코드 스니핏을 참고한다.
 
+### Events module
+EventBus 간략 구현체
+
 ### Ignitor module
 HMR, Redux, Redux Middleware, Service Worker 등에 대한 처리 모듈
 

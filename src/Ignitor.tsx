@@ -64,8 +64,7 @@ export namespace Ignitor {
    * - cannot use arrow function
    * @param _
    */
-  function logInfo (..._: string[]): void {
-    const args = Array.prototype.slice.call(arguments);
+  function logInfo (...args: string[]): void {
     console.info('[%cIgnitor%c]', 'color:magenta;font-weight:bold', 'color:inherit;font-weight:normal', ...args);
   }
 
@@ -81,7 +80,7 @@ export namespace Ignitor {
     // Title message
     if (option.isLogInfo) {
       console.info(
-        '\n%cReact Ignitor\n%cCopyright 2020. mornya. All rights reserved.\n',
+        '\n%cReact Ignitor\n%cCopyright 2021. mornya. All rights reserved.\n',
         'color:magenta;font-weight:bold',
         'color:purple;font-weight:bold',
       );
@@ -142,17 +141,20 @@ export namespace Ignitor {
       ReactDOM.render(
         (
           <AppContainer>
-            {store ? (
-              <Provider store={store}>
+            {store
+              ? (
+                <Provider store={store}>
+                  <Router basename={option.router?.basename}>
+                    <AppContent/>
+                  </Router>
+                </Provider>
+              )
+              : (
                 <Router basename={option.router?.basename}>
                   <AppContent/>
                 </Router>
-              </Provider>
-            ) : (
-              <Router basename={option.router?.basename}>
-                <AppContent/>
-              </Router>
-            )}
+              )
+            }
           </AppContainer>
         ),
         document.getElementById(option.application.rootElementId ?? 'app'),
