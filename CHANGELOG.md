@@ -1,6 +1,11 @@
 # Change Log
 All notable version changes would be documented in this file.
 
+## 1.1.0
+> Minor version updated at 2021.09.22
+- Chores: Update dependencies
+- Performance Improvements: Added ignitor option `isUseHotReload` to disable `react-hot-loader` (for using FastRefresh if you needed)
+
 ## 1.0.2
 > Patch version updated at 2021.04.02
 - Chores: Update dependencies

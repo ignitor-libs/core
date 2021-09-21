@@ -17,6 +17,7 @@ export namespace Ignitor {
     application: {
       component: any;
       rootElementId?: string;
+      isUseHotReload?: boolean;
       onHotReload (next: () => void): void;
       onAfterReload? (): void;
       onBeforeUnload? (): void;
@@ -39,6 +40,7 @@ export namespace Ignitor {
     application: {
       component: null,
       rootElementId: 'app',
+      isUseHotReload: true,
       onHotReload () {
         logInfo('The "onHotReload" function is not implemented!');
       },
@@ -62,7 +64,8 @@ export namespace Ignitor {
   /**
    * logInfo
    * - cannot use arrow function
-   * @param _
+   *
+   * @param args {string[]}
    */
   function logInfo (...args: string[]): void {
     console.info('[%cIgnitor%c]', 'color:magenta;font-weight:bold', 'color:inherit;font-weight:normal', ...args);
@@ -137,10 +140,11 @@ export namespace Ignitor {
 
     // First render modules
     const Router: RouterClass = option.router?.isUseBrowserRouter ? BrowserRouter : HashRouter;
+    const Container = option.application.isUseHotReload ? AppContainer : React.Fragment;
     const rootRenderer = (AppContent: any): void => {
       ReactDOM.render(
         (
-          <AppContainer>
+          <Container>
             {store
               ? (
                 <Provider store={store}>
@@ -155,7 +159,7 @@ export namespace Ignitor {
                 </Router>
               )
             }
-          </AppContainer>
+          </Container>
         ),
         document.getElementById(option.application.rootElementId ?? 'app'),
         option.application.onRender,
@@ -167,19 +171,21 @@ export namespace Ignitor {
       .catch((error: Error) => console.error(error));
 
     // When re-rendered by HMR (development only)
-    option.application.onHotReload(
-      () => {
-        if (option.isLogInfo) {
-          logInfo('HMR is accepted the updated modules...');
-        }
+    if (option.application.isUseHotReload) {
+      option.application.onHotReload(
+        () => {
+          if (option.isLogInfo) {
+            logInfo('HMR is accepted the updated modules...');
+          }
 
-        option.application.component()
-          .then((component: any) => {
-            rootRenderer(component.default);
-            option.application.onAfterReload?.();
-            return null;
-          })
-          .catch((error: Error) => console.error(error));
-      });
+          option.application.component()
+            .then((component: any) => {
+              rootRenderer(component.default);
+              option.application.onAfterReload?.();
+              return null;
+            })
+            .catch((error: Error) => console.error(error));
+        });
+    }
   }
 }

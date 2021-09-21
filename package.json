@@ -1,6 +1,6 @@
 {
   "name": "@ignitor/core",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "React/Redux Ignitor for development with less configuration.",
   "keywords": [
     "ignitor",
@@ -23,12 +23,13 @@
     "login": "vessel login",
     "clean": "vessel clean",
     "build": "vessel build",
-    "watch": "vessel build watch",
+    "watch": "vessel build --watch",
+    "check": "vessel check",
     "lint": "lintest lint",
-    "lint:fix": "lintest lint fix",
+    "lint:fix": "lintest lint --fix",
     "test": "lintest test",
-    "test:watch": "lintest test watch",
-    "test:coverage": "lintest test coverage"
+    "test:watch": "lintest test --watch",
+    "test:coverage": "lintest test --coverage"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org",
@@ -53,22 +54,22 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hot-loader": "^4.13.0",
-    "react-redux": "^7.2.3",
-    "react-router-dom": "^5.2.0",
-    "redux": "^4.0.5",
+    "react-redux": "^7.2.5",
+    "react-router-dom": "^5.3.0",
+    "redux": "^4.1.1",
     "redux-mock-store": "^1.5.4"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.22",
-    "@types/node": "^14.14.37",
-    "@types/react": "^17.0.3",
-    "@types/react-dom": "^17.0.3",
-    "@types/react-redux": "^7.1.16",
-    "@types/react-router-dom": "^5.1.7",
-    "@types/redux-mock-store": "^1.0.2",
-    "@types/webpack-env": "^1.16.0"
+    "@types/jest": "^27.0.2",
+    "@types/node": "^16.9.4",
+    "@types/react": "^17.0.22",
+    "@types/react-dom": "^17.0.9",
+    "@types/react-redux": "^7.1.18",
+    "@types/react-router-dom": "^5.1.9",
+    "@types/redux-mock-store": "^1.0.3",
+    "@types/webpack-env": "^1.16.2"
   },
   "vessel": {
-    "minVersion": "4.0.0"
+    "minVersion": "5.0.0"
   }
 }
