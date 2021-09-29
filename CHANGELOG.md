@@ -1,6 +1,11 @@
 # Change Log
 All notable version changes would be documented in this file.
 
+## 1.2.0
+> Minor version updated at 2021.09.29
+- Chores: Update dependencies
+- Deprecated: `react-hot-loader` to use `react fast refresh`
+
 ## 1.1.0
 > Minor version updated at 2021.09.22
 - Chores: Update dependencies

@@ -29,7 +29,7 @@ $ yarn add @ignitor/core
 EventBus 간략 구현체
 
 ### Ignitor module
-HMR, Redux, Redux Middleware, Service Worker 등에 대한 처리 모듈
+Redux, Redux Middleware, Service Worker 등에 대한 처리 모듈
 
 ### LazyComponent module
 React.lazy / React.Suspend를 이용하여 lazy component loading을 구현한 모듈

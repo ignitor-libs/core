@@ -5,7 +5,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { AppContainer } from 'react-hot-loader';
 import { BrowserRouter, HashRouter } from 'react-router-dom';
 import { ServiceWorker } from './ServiceWorker';
 import { ReduxStore } from './ReduxStore';
@@ -17,9 +16,6 @@ export namespace Ignitor {
     application: {
       component: any;
       rootElementId?: string;
-      isUseHotReload?: boolean;
-      onHotReload (next: () => void): void;
-      onAfterReload? (): void;
       onBeforeUnload? (): void;
       onRender? (): void;
     };
@@ -40,10 +36,6 @@ export namespace Ignitor {
     application: {
       component: null,
       rootElementId: 'app',
-      isUseHotReload: true,
-      onHotReload () {
-        logInfo('The "onHotReload" function is not implemented!');
-      },
     },
     router: {
       isUseBrowserRouter: true,
@@ -83,7 +75,7 @@ export namespace Ignitor {
     // Title message
     if (option.isLogInfo) {
       console.info(
-        '\n%cReact Ignitor\n%cCopyright 2021. mornya. All rights reserved.\n',
+        `\n%cReact Ignitor\n%cCopyright ${new Date().getFullYear()}. mornya. All rights reserved.\n`,
         'color:magenta;font-weight:bold',
         'color:purple;font-weight:bold',
       );
@@ -140,52 +132,34 @@ export namespace Ignitor {
 
     // First render modules
     const Router: RouterClass = option.router?.isUseBrowserRouter ? BrowserRouter : HashRouter;
-    const Container = option.application.isUseHotReload ? AppContainer : React.Fragment;
     const rootRenderer = (AppContent: any): void => {
-      ReactDOM.render(
-        (
-          <Container>
-            {store
-              ? (
-                <Provider store={store}>
-                  <Router basename={option.router?.basename}>
-                    <AppContent/>
-                  </Router>
-                </Provider>
-              )
-              : (
-                <Router basename={option.router?.basename}>
-                  <AppContent/>
-                </Router>
-              )
-            }
-          </Container>
+      ReactDOM.render(store
+        ? (
+          <Provider store={store}>
+            <Router basename={option.router?.basename}>
+              <AppContent/>
+            </Router>
+          </Provider>
+        )
+        : (
+          <Router basename={option.router?.basename}>
+            <AppContent/>
+          </Router>
         ),
         document.getElementById(option.application.rootElementId ?? 'app'),
         option.application.onRender,
       );
     };
 
-    option.application.component()
-      .then((component: any) => rootRenderer(component.default))
-      .catch((error: Error) => console.error(error));
-
-    // When re-rendered by HMR (development only)
-    if (option.application.isUseHotReload) {
-      option.application.onHotReload(
-        () => {
-          if (option.isLogInfo) {
-            logInfo('HMR is accepted the updated modules...');
-          }
-
-          option.application.component()
-            .then((component: any) => {
-              rootRenderer(component.default);
-              option.application.onAfterReload?.();
-              return null;
-            })
-            .catch((error: Error) => console.error(error));
-        });
+    // Render root
+    if (option.application.component) {
+      option.application.component()
+        .then((component: any) => rootRenderer(component.default))
+        .catch(console.error);
+    } else {
+      if (option.isLogInfo) {
+        logInfo('No main component was rendered.');
+      }
     }
   }
 }
