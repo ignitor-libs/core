@@ -133,19 +133,20 @@ export namespace Ignitor {
     // First render modules
     const Router: RouterClass = option.router?.isUseBrowserRouter ? BrowserRouter : HashRouter;
     const rootRenderer = (AppContent: any): void => {
-      ReactDOM.render(store
-        ? (
-          <Provider store={store}>
+      ReactDOM.render(
+        store
+          ? (
+            <Provider store={store}>
+              <Router basename={option.router?.basename}>
+                <AppContent/>
+              </Router>
+            </Provider>
+          )
+          : (
             <Router basename={option.router?.basename}>
               <AppContent/>
             </Router>
-          </Provider>
-        )
-        : (
-          <Router basename={option.router?.basename}>
-            <AppContent/>
-          </Router>
-        ),
+          ),
         document.getElementById(option.application.rootElementId ?? 'app'),
         option.application.onRender,
       );
